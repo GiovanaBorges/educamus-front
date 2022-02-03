@@ -47,8 +47,8 @@ export class FeedComponent implements OnInit {
     }
     this.like = 3;
 
-    this.getallTemas();
     this.getAllPostagens();
+    this.getallTemas();
   }
 
   addLike() {
@@ -76,6 +76,7 @@ export class FeedComponent implements OnInit {
   getAllPostagens() {
     this.postagemService.getAllPostagem().subscribe((resp: Postagem[]) => {
       this.postagem = resp;
+      console.log(this.post.usuario.nome);
     });
   }
 

@@ -16,12 +16,12 @@
                         <div class="col-lg  mb-3 profile justify-content-center mt-1"
                             style="border: 3px solid #262626;">
                             <div class="post_body mt-3 mb-3" style="width:auto;border: 5px solid  #262626;"
-                                *ngFor='let item of postagem'>
+                                *ngFor='let item of postagem | orderBy : key : reverse'>
+
                                 <div class="container d-flex justify-content-start align-items-center"
-                                    style="background-color: #303030;width:100%;"
-                                    *ngFor="let tema of tema.postagem | orderBy : key : reverse">
-                                    <img class="img-thumbnail" src="{{foto}}" alt="user">
-                                    <h5 class="p-1 mt-2 ms-2">{{nome}}</h5>
+                                    style="background-color: #303030;width:100%;">
+                                    <img class=" img-thumbnail" src="{{item.usuario.foto}}" alt="user">
+                                    <h5 class="p-1 mt-2 ms-2">{{item.usuario.nome}}</h5>
                                 </div>
                                 <div class="post_image ms-3 d-flex justify-content-center">
                                     <img src='{{item.foto}}' alt="example image" style="max-width:100%;">
@@ -80,7 +80,7 @@
 
 
                             <div class="post_body mt-3 mb-3" style="width:auto;border: 5px solid  #262626;"
-                                *ngFor='let item of user.postagem | orderBy : key : reverse'>
+                                *ngFor='let item of user.postagem'>
 
                                 <div class="container d-flex justify-content-start align-items-center"
                                     style="background-color: #303030;width:100%;">
@@ -130,6 +130,8 @@
 
                         </div>
 
+
+
                     </div>
 
                     <div class="tab-pane fade" id="v-pills-postagensPorMateria" role="tabpanel"
@@ -137,13 +139,13 @@
                         <h1>Postagens por matérias</h1>
 
                         <div class="col-lg  mb-3 profile justify-content-center mt-1" style="border: 3px solid #262626;"
-                            *ngFor='let tema of listTemas'>
+                            *ngFor='let tema of listTemas | orderBy: key: reverse'>
                             <div class="post_body mt-3 mb-3" style="width:auto;border: 5px solid  #262626;"
-                                *ngFor='let item of tema.postagem | orderBy : key : reverse'>
+                                *ngFor='let item of tema.postagem | orderBy: key: reverse'>
                                 <div class="container d-flex justify-content-start align-items-center"
                                     style="background-color: #303030;width:100%;">
-                                    <img class="img-thumbnail" src="{{foto}}" alt="user">
-                                    <h5 class="p-1 mt-2 ms-2">{{nome}}</h5>
+                                    <img class="img-thumbnail" src="{{item.usuario.foto}}" alt="user">
+                                    <h5 class="p-1 mt-2 ms-2">{{item.usuario.nome}}</h5>
 
 
                                 </div>
@@ -169,8 +171,8 @@
                                         <h6 class="tag p-2 me-1">
                                             {{item.data}}
                                         </h6>
-                                        <h6 class="tag p-2">
-                                            Matéria : {{tema.descricao}}
+                                        <h6 class="tag p-2 me-1">
+                                            Matéria: {{tema.descricao}}
                                         </h6>
                                     </div>
 
@@ -202,9 +204,9 @@
                         </div>
                     </div>
                     <div class="filter">
-                        <h6 class="ms-3 mt-3" style="color:#A5A5A5;">Filtar profs por matérias</h6>
+                        <h6 class="ms-3 mt-3" style="color:#A5A5A5;">Filtar por matérias</h6>
                     </div>
-                    <div class="form-check ms-3 mt-2" *ngFor='let tema of listTemas  | orderBy : key : reverse'>
+                    <div class="form-check ms-3 mt-2" *ngFor='let tema of listTemas '>
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
                         <label class="form-check-label" for="flexCheckChecked">
                             {{tema.descricao}}
@@ -236,7 +238,8 @@
 
                             <button class="nav-link" id="v-pills-postagensPorMateria-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-postagensPorMateria" type="button" role="tab"
-                                aria-controls="v-pills-postagensPorMateria" aria-selected="false">Postagens por
+                                aria-controls="v-pills-postagensPorMateria" aria-selected="false">Postagens
+                                por
                                 Matéria</button>
 
                         </div>
@@ -317,9 +320,9 @@
 
                 <div class="mb-3">
                     <label for="message-text">Escolha um tema:</label>
-                    <select name="tema" id="tema" class="form-control" [(ngModel)]='idTema' (change)="findByIdTema">
+                    <select name="tema" id="tema" class="form-control" [(ngModel)]='idTema' (change)="findByIdTema()">
                         <option value="">Escolha um tema</option>
-                        <option [(ngModel)]="idTema" *ngFor='let tema of listTemas' value="{{tema.id}}">
+                        <option *ngFor='let tema of listTemas' value="{{tema.id}}">
                             {{tema.descricao}}</option>
                     </select>
                 </div>
